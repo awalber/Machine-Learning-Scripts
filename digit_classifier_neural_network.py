@@ -82,10 +82,6 @@ def nn_predict(Theta1,Theta2,X):
     row_max_index +=1
     return row_max_index
 
-# This data is taken from Andrew Ng's machine learning course found on coursera.
-# However, this code should work for any data set that can be split into a matrix of
-# input features and the resulting output.
-
 # Translate the values into a python matrix from matlab formatting
 X = matrix(X)
 y = matrix(y)
