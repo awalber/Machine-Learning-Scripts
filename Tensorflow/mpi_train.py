@@ -130,11 +130,19 @@ class mpicallbacks(tf.keras.callbacks.Callback):
     self.batch_time = 0
     self.start_time = 0
     self.epoch_time = 0
+    
+  def on_train_begin(self,epoch,logs=None):
+    weights = self.model.get_weights()
+    starting_weights = comm.bcast(weights)
+    self.model.set_weights(starting_weights)
+    
   def on_train_batch_begin(self,batch,logs=None):
     self.start_time= time.time()
+    
   def on_train_batch_end(self,batch,logs=None):
     self.batch_time = time.time()-self.start_time
     self.epoch_time += self.batch_time
+    
   def on_epoch_end(self,epoch,logs=None):
     total_time = self.epoch_time
     weight_time = time.time()
